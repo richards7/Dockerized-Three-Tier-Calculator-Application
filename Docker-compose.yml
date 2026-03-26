@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    volumes:
+      - shared-logs:/logs   # ✅ shared log volume
+
+  db:
+    image: mongo:6
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+      - shared-logs:/logs   # ✅ same shared volume
+    command: >
+      sh -c "touch /logs/app.log && mongod --bind_ip_all & tail -f /logs/app.log"
+      # ✅ Mongo runs + log file streaming
+
+volumes:
+  mongo-data:
+  shared-logs:

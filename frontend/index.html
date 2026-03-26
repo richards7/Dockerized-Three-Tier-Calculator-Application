@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator</title>
+</head>
+<body>
+    <h2>Simple Calculator</h2>
+
+    <input id="a" type="number" placeholder="Number A">
+    <input id="b" type="number" placeholder="Number B">
+
+    <button onclick="calculate()">Add</button>
+
+    <h3 id="result"></h3>
+
+    <script>
+        async function calculate() {
+            const a = document.getElementById("a").value;
+            const b = document.getElementById("b").value;
+
+            const res = await fetch("http://localhost:5000/add", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({ a, b })
+            });
+
+            const data = await res.json();
+            document.getElementById("result").innerText = "Result: " + data.result;
+        }
+    </script>
+</body>
+</html>
+<button onclick="loadHistory()">Show History</button>
+<ul id="history"></ul>
+
+<script>
+async function loadHistory() {
+    const res = await fetch("http://localhost:5000/history");
+    const data = await res.json();
+
+    const list = document.getElementById("history");
+    list.innerHTML = "";
+
+    data.forEach(item => {
+        const li = document.createElement("li");
+        li.innerText = `${item.a} + ${item.b} = ${item.result}`;
+        list.appendChild(li);
+    });
+}
+</script>
