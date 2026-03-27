@@ -14,87 +14,92 @@ This project demonstrates a simple three-tier web application using Docker. The 
   
 ## End-to-End Flow (Sequential)
 
-1. VS Code (Development)
-   │
-   ├── Write frontend (HTML/JS)
-   ├── Write backend (Node.js API)
-   ├── Create Dockerfiles
-   └── Create docker-compose.yml
-   │
-   ▼
-2. Build & Run Application
-   │
-   └── Command: docker-compose up --build
-   │
-   ▼
-3. Docker Engine Execution
-   │
-   ├── Builds images
-   ├── Creates network
-   └── Starts containers
-   │
-   ▼
-4. Frontend Container Starts (Nginx)
-   │
-   └── Serves UI at http://localhost:3000
-   │
-   ▼
-5. Backend Container Starts (Node.js)
-   │
-   ├── Connects to MongoDB (mongodb://db:27017)
-   └── Exposes API (http://localhost:5000)
-   │
-   ▼
-6. MongoDB Container Starts
-   │
-   └── Waits for data from backend
-   │
-   ▼
-7. User Interaction (Browser)
-   │
-   ├── User enters values (A, B)
-   └── Clicks "Add"
-   │
-   ▼
-8. Frontend → Backend Communication
-   │
-   └── Sends POST request (/add)
-   │
-   ▼
-9. Backend Processing
-   │
-   ├── Receives input
-   ├── Performs calculation (A + B)
-   ├── Stores result in MongoDB
-   └── Logs operation using console.log()
-   │
-   ▼
-10. MongoDB Storage
-    │
-    └── Saves document:
-        { a: A, b: B, result: R }
-    │
-    ▼
-11. Logging Flow
-    │
-    ├── console.log() → stdout
-    └── Docker captures logs
-    │
-    ▼
-12. Log Visualization
-    │
-    ├── VS Code Terminal:
-    │     docker-compose logs -f backend
-    │
-    └── Docker Desktop:
-          Containers → Backend → Logs
-    │
-    ▼
-13. Verification
-    │
-    ├── Frontend → Check result in UI
-    ├── Backend Logs → Check real-time logs
-    └── Database → Verify stored data using mongosh
+# 1. VS Code (Development)
+
+* Write frontend (HTML/JS)
+* Write backend (Node.js API)
+* Create Dockerfiles
+* Create `docker-compose.yml`
+
+# 2. Build & Run Application
+
+* Run:
+
+  ```bash
+  docker-compose up --build
+  ```
+
+# 3. Docker Engine Execution
+
+* Builds images
+* Creates network
+* Starts containers
+
+# 4. Frontend Container (Nginx)
+
+* Serves UI at: http://localhost:3000
+
+# 5. Backend Container (Node.js)
+
+* Connects to MongoDB → `mongodb://db:27017`
+* Exposes API → http://localhost:5000
+
+# 6. MongoDB Container
+
+* Waits for data from backend
+
+# 7. User Interaction (Browser)
+
+* User enters values (A, B)
+* Clicks **Add**
+
+# 8. Frontend → Backend Communication
+
+* Sends POST request → `/add`
+
+# 9. Backend Processing
+
+* Receives input
+* Performs calculation (A + B)
+* Stores result in MongoDB
+* Logs operation using `console.log()`
+
+# 10. MongoDB Storage
+
+* Stores document:
+
+```json
+{ "a": A, "b": B, "result": R }
+```
+
+# 11. Logging Flow
+
+* Backend logs → `console.log()`
+* Output goes to → stdout
+* Docker captures logs
+
+# 12. Log Visualization
+
+* VS Code:
+
+  ```bash
+  docker-compose logs -f backend
+  ```
+* Docker Desktop:
+
+  * Containers → Backend → Logs
+
+# 13. Verification
+
+* Frontend → Check result in UI
+* Backend → Check real-time logs
+* Database → Verify using:
+
+  ```js
+  use calculator
+  db.calcs.find().pretty()
+  ```
+
 
 ---
 
