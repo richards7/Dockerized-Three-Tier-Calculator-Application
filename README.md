@@ -103,7 +103,7 @@ This project demonstrates a simple three-tier web application using Docker. The 
 
 ---
 
-## ✅ Why This Format Works
+## Why This Format Works
 
 * No horizontal arrows → no collapse issue
 * Fully readable in GitHub preview
@@ -112,7 +112,7 @@ This project demonstrates a simple three-tier web application using Docker. The 
 
 ---
 
-## 🎯 Key Insight
+## Key Insight
 
 This flow shows clearly:
 
@@ -179,14 +179,14 @@ Since Docker automatically captures console output, these logs are visible in re
 
 ---
 
-### 🔄 Viewing Backend Logs in Docker Desktop
+### Viewing Backend Logs in Docker Desktop
 
 1. Open **Docker Desktop**
 2. Go to **Containers**
 3. Select the **backend container**
 4. Open the **Logs tab**
 
-➡️ As soon as you perform a calculation in the frontend, logs will automatically appear here without any manual refresh.
+ As soon as you perform a calculation in the frontend, logs will automatically appear here without any manual refresh.
 
 ---
 
